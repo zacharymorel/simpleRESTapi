@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 type Article struct {
@@ -14,6 +16,10 @@ type Article struct {
 }
 
 type Articles []Article
+
+func testPostArticles(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "TEST POST ENDPOINT WORKED")
+}
 
 func allArticles(w http.ResponseWriter, r *http.Request) {
 	// func to return all articles written within memory
@@ -31,10 +37,14 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleRequest() {
+	myRouter := mux.NewRouter().StrictSlash(true)
+	// WE USE gorilla/mux router so we can specify what verbs can be used for what routes with a much simpler syntax
+
 	// HandleFunc is a function out of http package that allows us to register functions with routes to handle what happens with that route.
-	http.HandleFunc("/", homePage)
-	http.HandleFunc("/articles", allArticles) // INTERESTING THAT I DO NOT HAVE TO TELL THE HTTP ROUTER HANDLER WHICH KIND OF A REQUEST IS INCOMING
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	myRouter.HandleFunc("/", homePage)
+	myRouter.HandleFunc("/articles", allArticles).Methods("GET")
+	myRouter.HandleFunc("/articles", testPostArticles).Methods("POST")
+	log.Fatal(http.ListenAndServe(":8081", myRouter))
 }
 
 func main() {
