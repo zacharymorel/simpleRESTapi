@@ -14,6 +14,14 @@ func NewPerson(name string, age int) *person {
 	return &p
 }
 
+func SecondExportFunc(val string) string {
+	return val
+}
+
+func ThirdExportFunc() void {
+	fmt.Println("THIRD")
+}
+
 func main() {
 
 	fmt.Println(person{"Bob", 20})

@@ -52,5 +52,9 @@ func main() {
 	// Practicing import and using an exported Constructor function
 	var personTest = mypackage.NewPerson("55", 3)
 	fmt.Println("1: ", personTest)
+	var secondExportedFunc = mypackage.SecondExportFunc("HELLO")
+	fmt.Println("2: ", secondExportedFunc)
+	fmt.Println("3: ", mypackage.ThirdExportFunc())
+
 	// handleRequest()
 }
