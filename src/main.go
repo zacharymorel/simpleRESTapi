@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/zacharymorel/simpleRESTapi/src/mypackage"
 )
 
 type Article struct {
@@ -48,5 +49,8 @@ func handleRequest() {
 }
 
 func main() {
-	handleRequest()
+	// Practicing import and using an exported Constructor function
+	var personTest = mypackage.NewPerson("55", 3)
+	fmt.Println("1: ", personTest)
+	// handleRequest()
 }
